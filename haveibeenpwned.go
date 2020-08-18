@@ -156,10 +156,10 @@ func callService(service, account, domainFilter string, truncate, unverified boo
 	if domainFilter != "" {
 		parameters.Add("domain", domainFilter)
 	}
-	if truncate != false {
-		parameters.Add("truncateResponse", "true")
+	if truncate == false {
+		parameters.Add("truncateResponse", "false")
 	}
-	if unverified != false {
+	if unverified {
 		parameters.Add("includeUnverified", "true")
 	}
 	u.RawQuery = parameters.Encode()
