@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	pwn "github.com/jrizza/haveibeenpwned"
+	pwn "github.com/audibleblink/haveibeenpwned"
 )
 
 func main() {

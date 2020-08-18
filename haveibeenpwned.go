@@ -8,10 +8,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 //API URL of haveibeenpwned.com
-const API = "https://haveibeenpwned.com/api/v2/"
+const API = "https://haveibeenpwned.com/api/v3/"
 
 //BreachModel Each breach contains a number of attributes describing the incident. In the future, these attributes may expand without the API being versioned.
 type BreachModel struct {
@@ -168,7 +169,8 @@ func callService(service, account, domainFilter string, truncate, unverified boo
 		return nil, err
 	}
 
-	req.Header.Set("User-Agent", "Go/1.8")
+	req.Header.Set("User-Agent", "Go/1.15")
+	req.Header.Set("hibp-api-key", os.Getenv("HIBP_API_KEY"))
 	res, err := client.Do(req)
 
 	switch res.StatusCode {
@@ -176,6 +178,8 @@ func callService(service, account, domainFilter string, truncate, unverified boo
 		return nil, errors.New("the account does not comply with an acceptable format")
 	case http.StatusTooManyRequests:
 		return nil, errors.New("too many requests — the rate limit has been exceeded")
+	case http.StatusUnauthorized:
+		return nil, errors.New("valid header `hibp-api-key` required")
 	}
 
 	if err != nil {
