@@ -30,7 +30,7 @@ type BreachModel struct {
 	IsSensitive  bool     `json:"IsSensitive,omitempty"`
 	IsRetired    bool     `json:"IsRetired,omitempty"`
 	IsSpamList   bool     `json:"IsSpamList,omitempty"`
-	LogoType     string   `json:"LogoType,omitempty"`
+	LogoPath     string   `json:"LogoPath,omitempty"`
 }
 
 //PasteModel Each paste contains a number of attributes describing it. In the future, these attributes may expand without the API being versioned.
